@@ -82,8 +82,8 @@
 				<h6 class="thin base-font">Next workshops:</h6>
 				<h5 class="heading-alt" style="margin-bottom: 8px;"><span class="fa fa-calendar-o base-clr-txt"></span>17-18.oct <span class="fa fa-map-marker base-clr-txt" style="margin-left: 14px;"></span>Barcelona</h5>
 				<div class="btns-container">
-					<a href="#" class="btn btn-md" data-modal-link="email-ticket">APPLY NOW</a>
-					<a href="#about" class="btn btn-outline btn-md" data-modal-link="0">MORE INFOS</a>
+					<a id="heading-btn" href="#" class="btn btn-md" data-modal-link="email-ticket">APPLY NOW</a>
+					<a href="#about" class="btn btn-outline btn-md">MORE INFOS</a>
 				</div>
 			</div>
 		</div>
@@ -112,7 +112,7 @@
 							<li class="navigation-item"><a href="#contacts" class="navigation-link">Contacts</a></li>
 						</ul>
 
-						<a href="#" class="pull-right buy-btn" data-modal-link="email-ticket">Apply</a>
+						<a href="#" id="nav-btn" class="pull-right buy-btn" data-modal-link="email-ticket">Apply</a>
 					</div>
 				</div>
 			</div>
@@ -496,7 +496,7 @@
 								<li><span class="fa fa-check check-icon"></span>All ressources</li>
 							</ul>
 						</div>
-						<a href="#" class="btn btn-lg btn-outline-clr" data-modal-link="email-ticket">Apply now</a>
+						<a href="#" id="price-btn-day" class="btn btn-lg btn-outline-clr" data-modal-link="email-ticket">Apply now</a>
 					</div>
 				</div>
 
@@ -515,7 +515,7 @@
 								<li><span class="fa fa-check check-icon"></span>All ressources</li>
 							</ul>
 						</div>
-						<a href="#" class="btn btn-lg" data-modal-link="email-ticket">Apply now</a>
+						<a href="#" id="price-btn-full" class="btn btn-lg" data-modal-link="email-ticket">Apply now</a>
 					</div>
 				</div>
 
@@ -580,7 +580,7 @@
 			<br />
 			<br />
 
-			<a href="#" class="btn btn-lg btn-outline" data-modal-link="email-ticket">Apply</a>
+			<a href="#" id="bottom-btn" class="btn btn-lg btn-outline" data-modal-link="email-ticket">Apply</a>
 		</div>
 	</section>
 
@@ -724,6 +724,23 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
 	<script>
 	window.addEventListener("load", function(){
+		document.querySelectorAll('[data-modal-link]').forEach((el) => {
+			el.addEventListener('click', (el) => {
+				var btnId = el.target.id;
+			  fbq('track', 'InitiateCheckout', {
+			    value: 20,
+			    currency: 'EUR',
+					btnId: btnId
+			  });
+			})
+		});
+		$( '#mc-embedded-subscribe' ).click(function() {
+			var value = $('#mce-TICKET').val() === "Early Bird FULL" ? 445 : 295;
+			fbq('track', 'CompleteRegistration', {
+				value: value,
+				currency: 'EUR'
+			});
+		});
 	window.cookieconsent.initialise({
 	  "palette": {
 	    "popup": {
