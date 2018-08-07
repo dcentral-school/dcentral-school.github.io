@@ -857,7 +857,7 @@ Ventcamp = {
     },
 
     //onload handler
-    windowLoadHeandler: function (event) {
+    windowLoadHeandler: function () {
         this.log('Window load handler');
 
         if ( window.location.hash.length ) {
@@ -938,9 +938,9 @@ Ventcamp = {
     setEventHandlers: function () {
         var _this = this;
 
-        $(window).on('load', function (event) {
-            _this.windowLoadHeandler(event);
-        });
+        setTimeout(function() {
+          _this.windowLoadHeandler();
+        }, 1000);
 
         $(window).on('resize', function (event) {
             _this.windowResizeHandler(event);
@@ -1010,8 +1010,6 @@ Ventcamp = {
         if ( this.options.styleSwitcher ) this.buildStyleSwitcher();
 
         if ( this.options.smoothScroll ) this.smoothScrollInit();
-
-        if ( this.options.ajaxedForm ) this.formInit();
 
         if ( this.options.pseudoSelect ) this.initPseudoSelect();
 
